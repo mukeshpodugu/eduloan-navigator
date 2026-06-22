@@ -1,6 +1,10 @@
 # Multi-stage build targeting backend/ directory from the repository root
 FROM maven:3.9.6-eclipse-temurin-21-jammy AS build
 WORKDIR /app
+
+# Optimize Maven memory allocation for constrained server RAM (512MB free limits)
+ENV MAVEN_OPTS="-XX:+UseSerialGC -Xmx300m -Xss512k -XX:MaxRAMPercentage=70"
+
 COPY backend/pom.xml ./backend/
 COPY backend/src ./backend/src
 RUN mvn -f backend/pom.xml clean package -DskipTests
