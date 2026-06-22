@@ -1,0 +1,26 @@
+# Node.js
+**/node_modules/
+**/dist/
+**/.env
+**/.env.local
+**/.env.production
+**/.env.development
+
+# Java / Maven
+**/target/
+**/*.class
+**/*.jar
+**/*.war
+**/*.ear
+**/.mvn/
+**/.settings/
+**/.project
+**/.classpath
+
+# IDE / System
+.idea/
+*.iml
+*.iws
+.vscode/
+.DS_Store
+Thumbs.db

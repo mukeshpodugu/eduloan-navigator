@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans bg-brandBg-light text-primary transition-colors duration-300 antialiased;
+  }
+  
+  body.dark {
+    @apply bg-brandBg-dark text-slate-200;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50 rounded-2xl shadow-premium;
+  }
+  
+  .glass-card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:border-slate-300/80 dark:hover:border-slate-700/80 hover:-translate-y-1;
+  }
+  
+  .btn-primary {
+    @apply bg-accent hover:bg-accent-dark text-white font-medium px-6 py-2.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-glow flex items-center justify-center gap-2 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-light text-white font-medium px-6 py-2.5 rounded-xl transition-all duration-200 border border-slate-700/50 flex items-center justify-center gap-2 active:scale-95;
+  }
+
+  .btn-outline {
+    @apply border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-medium px-6 py-2.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 active:scale-95;
+  }
+
+  .input-field {
+    @apply w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-slate-600;
+  }
+
+  .slider-thumb {
+    @apply w-5 h-5 bg-accent rounded-full cursor-pointer shadow-glow;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300/60 dark:bg-slate-800/60 rounded-full hover:bg-slate-400 dark:hover:bg-slate-700;
+}
+
+/* Gradient text */
+.text-gradient-teal {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-emerald-400;
+}
+
+.text-gradient-slate {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-light dark:from-slate-100 dark:to-slate-400;
+}
+
+/* Slider custom styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  @apply h-2 bg-slate-200 dark:bg-slate-800 rounded-lg outline-none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  @apply w-5 h-5 bg-accent rounded-full cursor-pointer shadow-md hover:scale-110 active:bg-accent-dark transition-all;
+}
