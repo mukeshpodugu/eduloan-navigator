@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { BarChart, Bar, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid, Legend, AreaChart, Area } from 'recharts';
 import { calculateLoanDetails, formatCurrency } from '../utils/finance';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import { Calendar, HelpCircle, FileSpreadsheet, FileText, IndianRupee, Layers } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -84,7 +84,7 @@ export default function MoratoriumCalculator() {
       row.endingBalance
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       head: headers,
       body: data,
       startY: 75,

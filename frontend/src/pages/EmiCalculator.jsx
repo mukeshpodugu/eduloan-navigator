@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, AreaChart, Area, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { calculateEMI, calculateLoanDetails, formatCurrency } from '../utils/finance';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import { Download, FileSpreadsheet, FileText, RefreshCw, Calendar, IndianRupee } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -74,7 +74,7 @@ export default function EmiCalculator() {
       row.endingBalance
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       head: headers,
       body: data,
       startY: 65,

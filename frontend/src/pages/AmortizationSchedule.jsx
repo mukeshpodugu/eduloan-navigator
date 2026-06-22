@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { calculateLoanDetails, formatCurrency } from '../utils/finance';
 import { FileSpreadsheet, FileText, ArrowLeft, Search, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 
 export default function AmortizationSchedule() {
@@ -90,7 +90,7 @@ export default function AmortizationSchedule() {
       row.endingBalance
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       head: headers,
       body: data,
       startY: 45,
