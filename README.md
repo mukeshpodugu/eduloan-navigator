@@ -11,11 +11,17 @@ EduLoan Navigator is a professional full-stack FinTech application for student e
 
 ---
 
+## Live Deployments
+*   **Frontend (Vercel)**: [https://eduloan-navigator-f92ccp89f-podugu-mukeshs-projects.vercel.app](https://eduloan-navigator-f92ccp89f-podugu-mukeshs-projects.vercel.app)
+*   **Backend API (Render)**: [https://eduloan-backend-j9il.onrender.com](https://eduloan-backend-j9il.onrender.com)
+
+---
+
 ## Technical Stack
 *   **Frontend**: React, Vite, Tailwind CSS, Recharts (Charts), Framer Motion (Animations), Lucide React (Icons), jsPDF & jsPDF AutoTable (PDF Report), XLSX (Excel Report)
 *   **Backend**: Java 21, Spring Boot 3, Spring Security, JWT (JSON Web Token), JPA/Hibernate (Data Access), Swagger/OpenAPI (API Docs)
-*   **Database**: MySQL
-*   **Deployment**: Vercel (Frontend), Railway (Backend & Database)
+*   **Database**: MySQL (Local) / PostgreSQL (Production)
+*   **Deployment**: Vercel (Frontend), Render (Backend & Database)
 
 ---
 
@@ -87,21 +93,21 @@ npm run dev
 
 ## Production Deployment Steps
 
-### 1. Database (Railway)
-*   Deploy a MySQL service on Railway.
+### 1. Database (Render)
+*   Deploy a PostgreSQL database service on Render.
 *   Provide connection details to the Spring Boot instance.
 
-### 2. Backend (Railway)
-*   Link your GitHub repository to Railway.
-*   Add the following environment variables:
-    *   `SPRING_DATASOURCE_URL`: `jdbc:mysql://<host>:<port>/<dbname>`
+### 2. Backend (Render)
+*   Link your GitHub repository to Render (Web Service).
+*   Add the following environment variables in Render dashboard:
+    *   `SPRING_DATASOURCE_URL`: `jdbc:postgresql://<host>:<port>/<dbname>`
     *   `SPRING_DATASOURCE_USERNAME`: `<username>`
     *   `SPRING_DATASOURCE_PASSWORD`: `<password>`
     *   `JWT_SECRET`: A custom 64-character hex secret string.
-    *   `PORT`: `8080` (Railway injects this automatically)
-*   Railway automatically reads `backend/Dockerfile`, builds the multi-stage container, and provisions the API endpoints.
+    *   `PORT`: `8080` (Render injects this or defaults to port specified)
+*   Render automatically reads the root `Dockerfile` to build the multi-stage container and deploy the app.
 
 ### 3. Frontend (Vercel)
 *   Deploy the `frontend/` folder on Vercel.
-*   Set the environment variable `VITE_API_URL` to point to your Railway backend API e.g. `https://eduloan-backend.railway.app/api`.
-*   CORS configuration is pre-enabled for Vercel domains on the Spring Boot SecurityConfig class.
+*   Set the environment variable `VITE_API_URL` to point to your Render backend API e.g. `https://eduloan-backend-j9il.onrender.com/api`.
+*   CORS configuration is pre-enabled for Vercel domains in the Spring Boot `SecurityConfig` class.
