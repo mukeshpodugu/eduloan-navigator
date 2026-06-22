@@ -101,26 +101,34 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        // Allow common local development origins and any Vercel deployments
-        configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3000",
-            "http://localhost:5173",
-            "http://localhost:4173",
-            "https://eduloan-navigator.vercel.app"
-        ));
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-            "https://*.vercel.app",
-            "https://eduloan-navigator*.vercel.app"
-        ));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin"));
-        configuration.setExposedHeaders(List.of("Authorization"));
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L); // 1 hour caching of preflight requests
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+        return new CorsConfigurationSource() {
+            @Override
+            public CorsConfiguration getCorsConfiguration(jakarta.servlet.http.HttpServletRequest request) {
+                String origin = request.getHeader("Origin");
+                CorsConfiguration configuration = new CorsConfiguration();
+                
+                if (origin != null && (
+                    origin.equals("https://eduloan-navigator.vercel.app") ||
+                    origin.endsWith(".vercel.app") ||
+                    origin.startsWith("http://localhost:") ||
+                    origin.startsWith("http://127.0.0.1:")
+                )) {
+                    configuration.setAllowedOrigins(List.of(origin));
+                } else {
+                    configuration.setAllowedOrigins(Arrays.asList(
+                        "http://localhost:3000",
+                        "http://localhost:5173",
+                        "https://eduloan-navigator.vercel.app"
+                    ));
+                }
+                
+                configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin"));
+                configuration.setExposedHeaders(List.of("Authorization"));
+                configuration.setAllowCredentials(true);
+                configuration.setMaxAge(3600L); // 1 hour caching of preflight requests
+                return configuration;
+            }
+        };
     }
 }
