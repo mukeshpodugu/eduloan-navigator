@@ -22,10 +22,11 @@ public class JwtTokenProvider {
     @Value("${app.jwt.expiration-ms}")
     private int jwtExpirationInMs;
 
-    private Key getSigningKey() {
+    private Key getSignKey() {
         byte[] keyBytes = this.jwtSecret.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
 
     public String generateToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
