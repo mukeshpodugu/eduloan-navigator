@@ -65,4 +65,23 @@ public class AuthController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+
+    @GetMapping("/test-db")
+    public ResponseEntity<?> testDbConnection() {
+        try {
+            String tempUser = "test_" + System.currentTimeMillis();
+            RegisterRequest regReq = new RegisterRequest();
+            regReq.setUsername(tempUser);
+            regReq.setEmail(tempUser + "@example.com");
+            regReq.setPassword("Password@123");
+            
+            User saved = userService.registerUser(regReq);
+            return ResponseEntity.ok("Database write successful! Saved user ID: " + saved.getId());
+        } catch (Throwable e) {
+            java.io.StringWriter sw = new java.io.StringWriter();
+            java.io.PrintWriter pw = new java.io.PrintWriter(sw);
+            e.printStackTrace(pw);
+            return ResponseEntity.status(500).body("Database write failed! Stack trace:\n" + sw.toString());
+        }
+    }
 }
